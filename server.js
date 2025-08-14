@@ -16,9 +16,11 @@ dotenv.config()
 
 const app = express()
 const httpServer = createServer(app)
-const io = new Server(httpServer, {
-  cors: { origin: process.env.CLIENT_URL || '*', credentials: true }
-})
+app.use(cors({
+  origin: process.env.CLIENT_URL,  // Will use the URL from .env
+  credentials: true
+}));
+
 app.set('io', io)
 
 app.use(helmet())
